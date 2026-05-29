@@ -9,30 +9,30 @@ A gamified environmental education platform for schools and colleges. Students m
 ## 📸 Screenshots
 
 ### Hero — Landing Page
-![EcoQuest Hero](screenshots/hero.png)
+![EcoQuest Hero](hero.png)
 *Gamified landing page with XP tracker, level badge, and platform stats (42K+ students, 1,200+ schools)*
 
 ### Learning Quests
-![Learning Quests](screenshots/quests-1.png)
+![Learning Quests](quests-1.png)
 *Quest cards with difficulty tags, XP rewards, and progress tracking. Locked quests require leveling up.*
 
-![More Quests](screenshots/quests-2.png)
+![More Quests](quests-2.png)
 *Completed quests show a review option; in-progress quests show lab completion status.*
 
 ### Quiz Arena — Daily Challenge
-![Quiz Arena](screenshots/quiz.png)
+![Quiz Arena](quiz.png)
 *Timed daily quiz with 5 questions, streak counter, 2× XP bonuses, and daily goal tracking.*
 
 ### Leaderboard
-![Leaderboard](screenshots/leaderboard.png)
+![Leaderboard](leaderboard.png)
 *Weekly rankings of top eco warriors with XP scores, badges, and school affiliations. Badge collection panel on the right.*
 
 ### Real Impact Tracker
-![Impact Tracker](screenshots/impact.png)
+![Impact Tracker](impact.png)
 *Personal impact metrics: trees planted, water saved, clean energy generated, waste reduced, and CO₂ offset.*
 
 ### School Green Score Comparison
-![School Comparison](screenshots/school-comparison.png)
+![School Comparison](school-comparison.png)
 *Regional school leaderboard comparing green scores across Chhattisgarh schools.*
 
 ---
