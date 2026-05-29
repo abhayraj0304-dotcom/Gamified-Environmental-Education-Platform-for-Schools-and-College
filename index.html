@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoQuest — Environmental Learning Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #0a2e1a;
+    --green-mid: #1a6640;
+    --green-accent: #2ecc71;
+    --green-light: #a8f0c6;
+    --earth-brown: #8b5e3c;
+    --sky-blue: #87ceeb;
+    --sun-yellow: #f4d03f;
+    --coral: #e74c3c;
+    --bg: #f0f7f1;
+    --white: #ffffff;
+    --card-bg: rgba(255,255,255,0.92);
+    --text-dark: #0d1f14;
+    --text-muted: #4a7a5c;
+    --border: rgba(46,204,113,0.25);
+    --shadow: 0 4px 24px rgba(10,46,26,0.10);
+    --radius: 16px;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,46,26,0.96);
+    backdrop-filter: blur(12px);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+    border-bottom: 1px solid rgba(46,204,113,0.2);
+  }
+
+  .nav-logo {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--green-accent);
+    letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .nav-logo .leaf { font-size: 1.4rem; animation: sway 3s ease-in-out infinite; display: inline-block; }
+  @keyframes sway { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-accent); }
+
+  .nav-xp {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .xp-badge {
+    background: linear-gradient(135deg, var(--green-mid), var(--green-accent));
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .level-ring {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--sun-yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; color: #6b4c00;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--green-dark) 0%, #0f3d22 40%, #1a6640 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    padding: 80px 5% 60px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-particles {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    opacity: 0.15;
+    animation: float-up linear infinite;
+  }
+
+  @keyframes float-up {
+    from { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.08; }
+    to { transform: translateY(-100px) scale(1); opacity: 0; }
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(46,204,113,0.15);
+    border: 1px solid rgba(46,204,113,0.35);
+    color: var(--green-light);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.05;
+    max-width: 780px;
+    margin-bottom: 1.2rem;
+    letter-spacing: -1.5px;
+  }
+
+  .hero h1 span {
+    color: var(--green-accent);
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-ctas {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center;
+  }
+
+  .btn-primary {
+    background: var(--green-accent);
+    color: var(--green-dark);
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    font-family: var(--font-body);
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(46,204,113,0.4); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    padding: 13px 26px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: background 0.2s, border-color 0.2s;
+    font-family: var(--font-body);
+  }
+
+  .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 4rem;
+    flex-wrap: wrap; justify-content: center;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--green-accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+  }
+
+  /* ── SECTION BASICS ── */
+  section {
+    padding: 90px 5%;
+  }
+
+  .section-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--green-mid);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.1;
+    letter-spacing: -0.8px;
+    margin-bottom: 1rem;
+    max-width: 600px;
+  }
+
+  .section-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── MODULES / QUESTS ── */
+  .quests-section {
+    background: white;
+  }
+
+  .quests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .quest-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .quest-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+  .quest-banner {
+    height: 130px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quest-banner::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.18));
+  }
+
+  .quest-body { padding: 20px; }
+
+  .quest-tags {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;
+  }
+
+  .quest-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-beginner { background: #e8f8ef; color: #1a7a45; }
+  .tag-intermediate { background: #fff4d6; color: #966d00; }
+  .tag-advanced { background: #fde8e8; color: #c0392b; }
+  .tag-xp { background: var(--green-dark); color: var(--green-accent); }
+
+  .quest-title {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+
+  .quest-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .quest-progress {
+    margin-bottom: 14px;
+  }
+
+  .progress-bar-wrap {
+    background: #e8f5ee;
+    border-radius: 6px;
+    height: 7px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-mid), var(--green-accent));
+    border-radius: 6px;
+    transition: width 0.6s ease;
+  }
+
+  .progress-label {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+  }
+
+  .quest-cta {
+    width: 100%;
+    padding: 11px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    border: 1.5px solid var(--green-accent);
+    background: transparent;
+    color: var(--green-mid);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .quest-cta:hover { background: var(--green-accent); color: var(--green-dark); }
+  .quest-cta.active { background: var(--green-accent); color: var(--green-dark); border-color: var(--green-accent); }
+
+  .locked-overlay {
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(2px);
+    display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius);
+    flex-direction: column; gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .locked-overlay .lock-icon { font-size: 1.8rem; }
+
+  /* ── LEADERBOARD ── */
+  .leaderboard-section {
+    background: var(--green-dark);
+    color: white;
+  }
+
+  .leaderboard-section .section-title { color: white; }
+  .leaderboard-section .section-subtitle { color: rgba(255,255,255,0.55); }
+
+  .lb-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .lb-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .lb-row {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 16px;
+    transition: background 0.2s;
+  }
+
+  .lb-row:hover { background: rgba(255,255,255,0.10); }
+  .lb-row.me { background: rgba(46,204,113,0.12); border-color: rgba(46,204,113,0.3); }
+
+  .lb-rank {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 800;
+    min-width: 28px;
+    text-align: center;
+  }
+
+  .rank-1 { color: var(--sun-yellow); }
+  .rank-2 { color: #b0bec5; }
+  .rank-3 { color: #cd7f32; }
+
+  .lb-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+
+  .lb-info { flex: 1; }
+  .lb-name { font-size: 0.95rem; font-weight: 600; color: white; }
+  .lb-school { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+  .lb-score {
+    text-align: right;
+  }
+
+  .lb-xp {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--green-accent);
+  }
+
+  .lb-badges {
+    display: flex; gap: 3px; justify-content: flex-end; margin-top: 3px;
+  }
+
+  .badge-dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements-panel {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .ach-title {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .ach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .ach-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .ach-item:hover { transform: scale(1.03); }
+
+  .ach-icon { font-size: 1.8rem; margin-bottom: 6px; }
+
+  .ach-label {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.3;
+  }
+
+  .ach-item.locked { opacity: 0.35; filter: grayscale(1); }
+
+  /* ── QUIZ ARENA ── */
+  .quiz-section {
+    background: white;
+  }
+
+  .quiz-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .quiz-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .quiz-meta {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  }
+
+  .timer-badge {
+    background: #fde8e8;
+    color: var(--coral);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .quiz-q {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .quiz-options {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  .quiz-option {
+    padding: 13px 16px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    font-size: 0.92rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+    background: white;
+    font-family: var(--font-body);
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .quiz-option:hover { border-color: var(--green-accent); background: #f0fff6; }
+  .quiz-option.selected { border-color: var(--green-accent); background: #e5f9ee; color: var(--green-dark); }
+  .quiz-option.correct { border-color: #27ae60; background: #d4efdf; }
+  .quiz-option.wrong { border-color: var(--coral); background: #fde8e8; }
+
+  .option-letter {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: #f0f4f1;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.78rem;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: background 0.15s;
+  }
+
+  .quiz-option.selected .option-letter { background: var(--green-accent); color: var(--green-dark); }
+
+  .quiz-submit {
+    margin-top: 18px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--green-accent);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: transform 0.15s, opacity 0.15s;
+  }
+
+  .quiz-submit:hover { transform: translateY(-1px); }
+  .quiz-submit:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .quiz-streak {
+    background: linear-gradient(135deg, #0a2e1a, #1a6640);
+    border-radius: var(--radius);
+    padding: 28px;
+    color: white;
+  }
+
+  .streak-number {
+    font-family: var(--font-head);
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--sun-yellow);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .streak-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .streak-perks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+
+  .perk-row {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .perk-icon { font-size: 1.2rem; }
+
+  .daily-goals {
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .daily-goal-title {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .goal-item {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .goal-check {
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  .goal-check.done { background: var(--green-accent); color: var(--green-dark); }
+  .goal-check.pending { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); }
+
+  /* ── IMPACT TRACKER ── */
+  .impact-section {
+    background: var(--bg);
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 3rem;
+  }
+
+  .impact-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .impact-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+  .impact-icon { font-size: 2.2rem; margin-bottom: 10px; }
+
+  .impact-val {
+    font-family: var(--font-head);
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--green-mid);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .impact-unit {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+  }
+
+  .school-compare {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .compare-title {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+  }
+
+  .compare-bar {
+    margin-bottom: 16px;
+  }
+
+  .compare-bar-label {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    margin-bottom: 7px;
+    font-weight: 500;
+  }
+
+  .compare-bar-score {
+    font-weight: 700;
+    color: var(--green-mid);
+  }
+
+  .compare-bar-track {
+    height: 10px;
+    background: #e8f5ee;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .compare-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--green-mid), var(--green-accent));
+    transition: width 1s ease 0.5s;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 28px;
+    font-size: 0.83rem;
+    border-top: 1px solid rgba(46,204,113,0.1);
+  }
+
+  footer span { color: var(--green-accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes count-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .lb-layout, .quiz-layout { grid-template-columns: 1fr; }
+    .achievements-panel { margin-top: 0; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 4%; }
+    .nav-links { display: none; }
+    section { padding: 60px 4%; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-stats { gap: 1.5rem; }
+    .ach-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="leaf">🌿</span> EcoQuest</div>
+  <ul class="nav-links">
+    <li><a href="#quests">Quests</a></li>
+    <li><a href="#quiz">Quiz Arena</a></li>
+    <li><a href="#leaderboard">Leaderboard</a></li>
+    <li><a href="#impact">My Impact</a></li>
+  </ul>
+  <div class="nav-xp">
+    <div class="xp-badge">⚡ 2,450 XP</div>
+    <div class="level-ring">Lv9</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-tag">🎓 For Schools &amp; Colleges · Gamified Learning</div>
+  <h1>Save the Planet,<br><span>Earn Your Rank.</span></h1>
+  <p>Master environmental science through quests, quizzes, and real-world challenges. Compete with peers. Track your green impact. Level up the Earth.</p>
+  <div class="hero-ctas">
+    <a href="#quests" class="btn-primary">🚀 Start a Quest</a>
+    <a href="#quiz" class="btn-outline">⚡ Daily Quiz Challenge</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">42K+</div><div class="stat-label">Students</div></div>
+    <div class="stat-item"><div class="stat-num">1,200+</div><div class="stat-label">Schools</div></div>
+    <div class="stat-item"><div class="stat-num">89T</div><div class="stat-label">CO₂ Saved (kg)</div></div>
+    <div class="stat-item"><div class="stat-num">5.6M</div><div class="stat-label">Quests Done</div></div>
+  </div>
+</section>
+
+<!-- QUESTS -->
+<section class="quests-section" id="quests">
+  <p class="section-label fade-in">🗺 Learning Quests</p>
+  <h2 class="section-title fade-in">Choose Your<br>Next Adventure</h2>
+  <p class="section-subtitle fade-in">Each quest is a module combining video lessons, field activities, and mini-challenges that earn you XP, badges, and real impact points.</p>
+
+  <div class="quests-grid">
+
+    <div class="quest-card fade-in">
+      <div class="quest-banner" style="background: linear-gradient(135deg,#1a6640,#2ecc71);">🌊</div>
+      <div class="quest-body">
+        <div class="quest-tags">
+          <span class="quest-tag tag-beginner">Beginner</span>
+          <span class="quest-tag tag-xp">+500 XP</span>
+        </div>
+        <div class="quest-title">Ocean & Water Systems</div>
+        <div class="quest-desc">Explore marine ecosystems, ocean acidification, and water conservation techniques through 8 interactive labs.</div>
+        <div class="quest-progress">
+          <div class="progress-label"><span>Progress</span><span>6 / 8 Labs</span></div>
+          <div class="progress-bar-wrap"><div class="progress-fill" style="width:75%"></div></div>
+        </div>
+        <button class="quest-cta active" onclick="handleQuest(this)">▶ Continue Quest</button>
+      </div>
+    </div>
+
+    <div class="quest-card fade-in">
+      <div class="quest-banner" style="background: linear-gradient(135deg,#4a2c0a,#e07b39);">🌳</div>
+      <div class="quest-body">
+        <div class="quest-tags">
+          <span class="quest-tag tag-beginner">Beginner</span>
+          <span class="quest-tag tag-xp">+400 XP</span>
+        </div>
+        <div class="quest-title">Forests & Biodiversity</div>
+        <div class="quest-desc">Understand deforestation, wildlife corridors, and plant trees virtually that count toward your school's green score.</div>
+        <div class="quest-progress">
+          <div class="progress-label"><span>Progress</span><span>3 / 10 Labs</span></div>
+          <div class="progress-bar-wrap"><div class="progress-fill" style="width:30%"></div></div>
+        </div>
+        <button class="quest-cta" onclick="handleQuest(this)">▶ Continue Quest</button>
+      </div>
+    </div>
+
+    <div class="quest-card fade-in">
+      <div class="quest-banner" style="background: linear-gradient(135deg,#1a2e6a,#3498db);">☀️</div>
+      <div class="quest-body">
+        <div class="quest-tags">
+          <span class="quest-tag tag-intermediate">Intermediate</span>
+          <span class="quest-tag tag-xp">+750 XP</span>
+        </div>
+        <div class="quest-title">Renewable Energy Future</div>
+        <div class="quest-desc">Design a solar grid for a virtual city, understand wind turbine physics, and model energy transitions.</div>
+        <div class="quest-progress">
+          <div class="progress-label"><span>Progress</span><span>0 / 12 Labs</span></div>
+          <div class="progress-bar-wrap"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+        <button class="quest-cta" onclick="handleQuest(this)">▶ Start Quest</button>
+      </div>
+    </div>
+
+    <div class="quest-card fade-in">
+      <div class="quest-banner" style="background: linear-gradient(135deg,#3d0a2a,#c0392b);">🏭</div>
+      <div class="quest-body">
+        <div class="quest-tags">
+          <span class="quest-tag tag-advanced">Advanced</span>
+          <span class="quest-tag tag-xp">+1000 XP</span>
+        </div>
+        <div class="quest-title">Climate Policy & Action</div>
+        <div class="quest-desc">Simulate UN climate negotiations, draft carbon laws for your city, and debate real climate solutions.</div>
+        <div class="quest-progress">
+          <div class="progress-label"><span>Progress</span><span>Locked</span></div>
+          <div class="progress-bar-wrap"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+        <button class="quest-cta" disabled>🔒 Unlock at Level 12</button>
+        <div class="locked-overlay">
+          <span class="lock-icon">🔐</span>
+          <span>Reach Level 12 to unlock</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quest-card fade-in">
+      <div class="quest-banner" style="background: linear-gradient(135deg,#1a4a20,#8bc34a);">🌱</div>
+      <div class="quest-body">
+        <div class="quest-tags">
+          <span class="quest-tag tag-beginner">Beginner</span>
+          <span class="quest-tag tag-xp">+350 XP</span>
+        </div>
+        <div class="quest-title">Soil &amp; Agriculture</div>
+        <div class="quest-desc">Grow a virtual sustainable farm, learn composting science, and discover organic farming techniques.</div>
+        <div class="quest-progress">
+          <div class="progress-label"><span>Progress</span><span>8 / 8 Labs ✓</span></div>
+          <div class="progress-bar-wrap"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <button class="quest-cta active" onclick="handleQuest(this)">🏆 Completed — Review</button>
+      </div>
+    </div>
+
+    <div class="quest-card fade-in">
+      <div class="quest-banner" style="background: linear-gradient(135deg,#2e1a6a,#9b59b6);">🌆</div>
+      <div class="quest-body">
+        <div class="quest-tags">
+          <span class="quest-tag tag-intermediate">Intermediate</span>
+          <span class="quest-tag tag-xp">+650 XP</span>
+        </div>
+        <div class="quest-title">Urban Sustainability</div>
+        <div class="quest-desc">Plan a green city from scratch — public transport, green roofs, waste management, and smart energy grids.</div>
+        <div class="quest-progress">
+          <div class="progress-label"><span>Progress</span><span>2 / 9 Labs</span></div>
+          <div class="progress-bar-wrap"><div class="progress-fill" style="width:22%"></div></div>
+        </div>
+        <button class="quest-cta" onclick="handleQuest(this)">▶ Continue Quest</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUIZ ARENA -->
+<section class="quiz-section" id="quiz">
+  <p class="section-label fade-in">⚡ Quiz Arena</p>
+  <h2 class="section-title fade-in">Daily Challenge</h2>
+  <p class="section-subtitle fade-in">Answer 5 questions a day to keep your streak alive and climb the daily leaderboard.</p>
+
+  <div class="quiz-layout">
+    <div class="quiz-card fade-in">
+      <div class="quiz-meta">
+        <div class="timer-badge">⏱ <span id="timer">45</span>s</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); font-weight:500;">Question 3 of 5</div>
+        <div style="margin-left:auto; font-size:0.82rem; color:var(--green-mid); font-weight:600;">+100 XP</div>
+      </div>
+
+      <div class="quiz-q">Which greenhouse gas has the highest global warming potential (GWP) over a 100-year period?</div>
+
+      <div class="quiz-options" id="quiz-options">
+        <button class="quiz-option" onclick="selectOption(this)">
+          <span class="option-letter">A</span> Carbon Dioxide (CO₂)
+        </button>
+        <button class="quiz-option" onclick="selectOption(this)">
+          <span class="option-letter">B</span> Methane (CH₄)
+        </button>
+        <button class="quiz-option" onclick="selectOption(this)">
+          <span class="option-letter">C</span> Nitrous Oxide (N₂O)
+        </button>
+        <button class="quiz-option" onclick="selectOption(this)">
+          <span class="option-letter">D</span> Sulfur Hexafluoride (SF₆)
+        </button>
+      </div>
+
+      <button class="quiz-submit" id="quiz-submit" disabled onclick="submitQuiz()">Submit Answer</button>
+
+      <div id="quiz-feedback" style="display:none; margin-top:14px; padding:12px 16px; border-radius:10px; font-size:0.88rem; line-height:1.5;"></div>
+    </div>
+
+    <div class="fade-in">
+      <div class="quiz-streak">
+        <div class="streak-number" id="streak-count">🔥 7</div>
+        <div class="streak-label">Day Streak</div>
+        <div class="streak-perks">
+          <div class="perk-row"><span class="perk-icon">⚡</span> 2× XP on all today's answers</div>
+          <div class="perk-row"><span class="perk-icon">🛡️</span> Streak shield active (1 miss forgiven)</div>
+          <div class="perk-row"><span class="perk-icon">🎁</span> Day 10 reward: Rare Forest Badge</div>
+        </div>
+        <div class="daily-goals">
+          <div class="daily-goal-title">Today's Goals</div>
+          <div class="goal-item"><div class="goal-check done">✓</div> Complete 1 quiz round</div>
+          <div class="goal-item"><div class="goal-check done">✓</div> Watch 1 lesson video</div>
+          <div class="goal-item"><div class="goal-check pending"></div> Submit a field observation</div>
+          <div class="goal-item"><div class="goal-check pending"></div> Challenge a classmate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section class="leaderboard-section" id="leaderboard">
+  <p class="section-label fade-in" style="color:var(--green-accent);">🏆 Leaderboard</p>
+  <h2 class="section-title fade-in">Top Eco Warriors</h2>
+  <p class="section-subtitle fade-in">Rankings reset every Sunday. Keep your streak alive and earn bonus XP for top-10 finishes.</p>
+
+  <div class="lb-layout">
+    <div>
+      <div class="lb-list fade-in">
+
+        <div class="lb-row">
+          <div class="lb-rank rank-1">1</div>
+          <div class="lb-avatar">🌟</div>
+          <div class="lb-info">
+            <div class="lb-name">Priya Sharma</div>
+            <div class="lb-school">DPS, Raipur · Class XII</div>
+          </div>
+          <div class="lb-score">
+            <div class="lb-xp">12,840 XP</div>
+            <div class="lb-badges"><span title="Ocean Master">🌊</span><span title="Fire streak">🔥</span><span title="Eco Hero">🌿</span></div>
+          </div>
+        </div>
+
+        <div class="lb-row">
+          <div class="lb-rank rank-2">2</div>
+          <div class="lb-avatar">🌲</div>
+          <div class="lb-info">
+            <div class="lb-name">Aryan Mishra</div>
+            <div class="lb-school">NIT Raipur · 2nd Year</div>
+          </div>
+          <div class="lb-score">
+            <div class="lb-xp">11,200 XP</div>
+            <div class="lb-badges"><span>⚡</span><span>🌱</span></div>
+          </div>
+        </div>
+
+        <div class="lb-row">
+          <div class="lb-rank rank-3">3</div>
+          <div class="lb-avatar">⚡</div>
+          <div class="lb-info">
+            <div class="lb-name">Kavya Nair</div>
+            <div class="lb-school">Kendriya Vidyalaya, Bhilai</div>
+          </div>
+          <div class="lb-score">
+            <div class="lb-xp">10,750 XP</div>
+            <div class="lb-badges"><span>🌏</span><span>🔬</span></div>
+          </div>
+        </div>
+
+        <div class="lb-row">
+          <div class="lb-rank" style="color:rgba(255,255,255,0.5)">4</div>
+          <div class="lb-avatar">🌿</div>
+          <div class="lb-info">
+            <div class="lb-name">Rohan Gupta</div>
+            <div class="lb-school">IIT Bhilai · 3rd Year</div>
+          </div>
+          <div class="lb-score">
+            <div class="lb-xp">9,900 XP</div>
+            <div class="lb-badges"><span>☀️</span></div>
+          </div>
+        </div>
+
+        <div class="lb-row">
+          <div class="lb-rank" style="color:rgba(255,255,255,0.5)">5</div>
+          <div class="lb-avatar">☀️</div>
+          <div class="lb-info">
+            <div class="lb-name">Sneha Patel</div>
+            <div class="lb-school">Government College, Durg</div>
+          </div>
+          <div class="lb-score">
+            <div class="lb-xp">9,200 XP</div>
+            <div class="lb-badges"><span>🌊</span></div>
+          </div>
+        </div>
+
+        <div class="lb-row me">
+          <div class="lb-rank" style="color:var(--green-accent)">9</div>
+          <div class="lb-avatar" style="background:rgba(46,204,113,0.2)">🎓</div>
+          <div class="lb-info">
+            <div class="lb-name" style="color:var(--green-accent)">You</div>
+            <div class="lb-school">Your School</div>
+          </div>
+          <div class="lb-score">
+            <div class="lb-xp">2,450 XP</div>
+            <div class="lb-badges"><span>🌱</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="achievements-panel fade-in">
+      <div class="ach-title">Your Badge Collection</div>
+      <div class="ach-grid">
+        <div class="ach-item">
+          <div class="ach-icon">🌊</div>
+          <div class="ach-label">Ocean Explorer</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-icon">🌱</div>
+          <div class="ach-label">First Sprout</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-icon">🔥</div>
+          <div class="ach-label">7-Day Streak</div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-icon">📚</div>
+          <div class="ach-label">Quest Starter</div>
+        </div>
+        <div class="ach-item locked">
+          <div class="ach-icon">🦅</div>
+          <div class="ach-label">Sky Guardian</div>
+        </div>
+        <div class="ach-item locked">
+          <div class="ach-icon">🏆</div>
+          <div class="ach-label">Top 5 This Week</div>
+        </div>
+        <div class="ach-item locked">
+          <div class="ach-icon">⚡</div>
+          <div class="ach-label">Speed Scholar</div>
+        </div>
+        <div class="ach-item locked">
+          <div class="ach-icon">🌍</div>
+          <div class="ach-label">Planet Champion</div>
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%; margin-top:20px; justify-content:center; font-size:0.88rem; padding:11px;" onclick="alert('Badge gallery opening...')">View All 48 Badges 🗺</button>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT TRACKER -->
+<section class="impact-section" id="impact">
+  <p class="section-label fade-in">🌍 Real Impact Tracker</p>
+  <h2 class="section-title fade-in">Your Learning = Real World Change</h2>
+  <p class="section-subtitle fade-in">Every quest completed triggers a real-world action — tree planting, ocean clean-up contributions, and renewable energy funding.</p>
+
+  <div class="impact-grid">
+    <div class="impact-card fade-in">
+      <div class="impact-icon">🌳</div>
+      <div class="impact-val" data-target="3">3</div>
+      <div class="impact-unit">Trees Planted</div>
+    </div>
+    <div class="impact-card fade-in">
+      <div class="impact-icon">💧</div>
+      <div class="impact-val" data-target="1200">1,200</div>
+      <div class="impact-unit">Litres Water Saved</div>
+    </div>
+    <div class="impact-card fade-in">
+      <div class="impact-icon">⚡</div>
+      <div class="impact-val" data-target="48">48</div>
+      <div class="impact-unit">kWh Clean Energy</div>
+    </div>
+    <div class="impact-card fade-in">
+      <div class="impact-icon">♻️</div>
+      <div class="impact-val" data-target="5">5</div>
+      <div class="impact-unit">kg Waste Reduced</div>
+    </div>
+    <div class="impact-card fade-in">
+      <div class="impact-icon">🌬️</div>
+      <div class="impact-val" data-target="120">120</div>
+      <div class="impact-unit">kg CO₂ Offset</div>
+    </div>
+  </div>
+
+  <div class="school-compare fade-in">
+    <div class="compare-title">🏫 School Green Score Comparison — Chhattisgarh Region</div>
+
+    <div class="compare-bar">
+      <div class="compare-bar-label"><span>DPS, Raipur</span><span class="compare-bar-score">94 / 100</span></div>
+      <div class="compare-bar-track"><div class="compare-bar-fill" style="width:94%"></div></div>
+    </div>
+    <div class="compare-bar">
+      <div class="compare-bar-label"><span>Kendriya Vidyalaya, Bhilai</span><span class="compare-bar-score">87 / 100</span></div>
+      <div class="compare-bar-track"><div class="compare-bar-fill" style="width:87%"></div></div>
+    </div>
+    <div class="compare-bar">
+      <div class="compare-bar-label"><span>Your School <span style="font-size:0.75rem;color:var(--green-accent)">▲ +12 this week</span></span><span class="compare-bar-score">61 / 100</span></div>
+      <div class="compare-bar-track"><div class="compare-bar-fill" style="width:61%; background: linear-gradient(90deg, var(--green-accent), var(--sun-yellow));"></div></div>
+    </div>
+    <div class="compare-bar">
+      <div class="compare-bar-label"><span>Government School, Durg</span><span class="compare-bar-score">55 / 100</span></div>
+      <div class="compare-bar-track"><div class="compare-bar-fill" style="width:55%"></div></div>
+    </div>
+    <div class="compare-bar">
+      <div class="compare-bar-label"><span>St. Xavier's, Bilaspur</span><span class="compare-bar-score">48 / 100</span></div>
+      <div class="compare-bar-track"><div class="compare-bar-fill" style="width:48%"></div></div>
+    </div>
+
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:16px;">Score based on quests completed, field activities logged, and carbon footprint reduction by all students.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built with 💚 for the planet · <span>EcoQuest</span> Environmental Education Platform · 2025</p>
+  <p style="margin-top:6px; font-size:0.76rem;">For schools, colleges &amp; universities · Aligned with NEP 2020 environmental guidelines</p>
+</footer>
+
+<script>
+  /* Particles */
+  const pEl = document.getElementById('particles');
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.width = p.style.height = (4 + Math.random() * 8) + 'px';
+    p.style.animationDuration = (8 + Math.random() * 16) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    pEl.appendChild(p);
+  }
+
+  /* Intersection observer for fade-in */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  /* Quiz timer */
+  let timeLeft = 45;
+  const timerEl = document.getElementById('timer');
+  const timerInterval = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+    if (timeLeft <= 10) timerEl.parentElement.style.background = '#fde8e8';
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      showFeedback(false);
+    }
+  }, 1000);
+
+  let selectedOption = null;
+
+  function selectOption(el) {
+    document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedOption = el;
+    document.getElementById('quiz-submit').disabled = false;
+  }
+
+  function submitQuiz() {
+    clearInterval(timerInterval);
+    const options = document.querySelectorAll('.quiz-option');
+    const correctIndex = 3; // D — SF6
+    options.forEach((o, i) => {
+      o.disabled = true;
+      if (i === correctIndex) o.classList.add('correct');
+      else if (o.classList.contains('selected')) o.classList.add('wrong');
+    });
+    document.getElementById('quiz-submit').disabled = true;
+    const isCorrect = selectedOption && Array.from(options).indexOf(selectedOption) === correctIndex;
+    showFeedback(isCorrect);
+  }
+
+  function showFeedback(correct) {
+    const fb = document.getElementById('quiz-feedback');
+    fb.style.display = 'block';
+    if (correct) {
+      fb.style.background = '#e5f9ee';
+      fb.style.border = '1px solid #b6e8c8';
+      fb.style.color = '#0f5e30';
+      fb.innerHTML = '✅ <strong>Correct!</strong> SF₆ has a GWP of ~23,500 over 100 years — over 23,000× more potent than CO₂. <strong>+200 XP earned!</strong>';
+    } else {
+      fb.style.background = '#fde8e8';
+      fb.style.border = '1px solid #f5b0b0';
+      fb.style.color = '#8a1818';
+      fb.innerHTML = '❌ <strong>Not quite.</strong> The answer is Sulfur Hexafluoride (SF₆) with a GWP of ~23,500. Don\'t worry — keep trying!';
+    }
+  }
+
+  function handleQuest(btn) {
+    const wasActive = btn.classList.contains('active');
+    if (btn.textContent.includes('Continue') || btn.textContent.includes('Start')) {
+      btn.textContent = '⏳ Loading Quest...';
+      setTimeout(() => { btn.textContent = '▶ Continue Quest'; btn.classList.add('active'); }, 800);
+    }
+  }
+</script>
+</body>
+</html>
